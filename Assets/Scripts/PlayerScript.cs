@@ -36,4 +36,21 @@ public class PlayerScript : MonoBehaviour
         curLightLevel = Mathf.Clamp(curLightLevel, minLight, maxLight);
         playerLight.range = curLightLevel;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("LightPickup"))
+        {
+            curLightLevel += 2f;
+            if (curLightLevel > maxLight)
+            {
+                curLightLevel = maxLight;
+            }
+            Destroy(other.gameObject);
+        }
+        else if (other.CompareTag("DeathObstacle"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }
